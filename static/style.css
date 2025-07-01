@@ -43,6 +43,13 @@ pre>code {
     display: block;
 }
 
+pre {
+    overflow-x: auto;
+    white-space: pre;
+    word-wrap: normal;
+    -webkit-overflow-scrolling: touch;
+}
+
 header {
     height: 80px;
 }
