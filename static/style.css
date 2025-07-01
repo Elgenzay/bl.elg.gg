@@ -67,6 +67,11 @@ nav li {
     margin-bottom: 0.5rem;
 }
 
+p > img {
+    display: block;
+    margin: 0 auto;
+}
+
 @media (min-width: 800px) {
     .layout {
         flex-direction: row-reverse !important;
