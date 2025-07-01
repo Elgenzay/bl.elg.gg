@@ -1,1 +1,162 @@
+body {
+    background-color: #000;
+    color: #ddd;
+    font-family: sans-serif;
+    height: 100%;
+    line-height: 1.6;
+    margin: 0 auto;
+    max-width: 1200px;
+}
 
+a {
+    color: #60aaff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+header {
+    border-bottom: 2px solid #333;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    padding: 0.5rem 1rem;
+}
+
+header h1 {
+    color: #fff;
+    font-size: 2rem;
+    margin: 0;
+}
+
+code {
+    background-color: #333;
+    border-radius: 4px;
+    color: #fff;
+    padding: 0.2rem 0.4rem;
+}
+
+pre>code {
+    display: block;
+}
+
+header {
+    height: 80px;
+}
+
+footer {
+    color: #888;
+}
+
+nav ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+nav li {
+    margin-bottom: 0.5rem;
+}
+
+@media (min-width: 800px) {
+    .layout {
+        flex-direction: row-reverse !important;
+        gap: 2rem;
+    }
+
+    .sidebar {
+        flex-shrink: 0;
+    }
+
+    .content {
+        flex-grow: 1;
+    }
+
+    .wrapper {
+        padding: 1rem 4rem !important;
+    }
+}
+
+@media (min-width: 1200px) {
+    .wrapper {
+        border-left: 1px solid #fff;
+        border-right: 1px solid #fff;
+    }
+}
+
+#bgcanvas {
+    left: 0;
+    position: fixed;
+    top: 0;
+    z-index: -100;
+}
+
+.layout {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 2rem;
+}
+
+.post-title {
+    color: #fff;
+    font-size: 1.75rem;
+    margin-bottom: 0.25rem;
+}
+
+.post-date {
+    color: #888;
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+}
+
+.sidebar {
+    align-self: flex-start;
+    margin-right: 40px;
+    position: sticky;
+    top: 1rem;
+}
+
+.sidebar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.sidebar li {
+    margin-bottom: 0.5rem;
+}
+
+.sidebar a {
+    border-radius: 4px;
+    color: #ddd;
+    display: block;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    transition: background-color 0.2s, color 0.2s;
+    width: 100%;
+}
+
+.sidebar a:hover {
+    background-color: #2a2a2a;
+    color: #fff;
+}
+
+.active {
+    background-color: #2a2a2a;
+    pointer-events: none;
+}
+
+.pixelart-to-css {
+    box-shadow: 8px 8px 0 0 rgba(255, 255, 255, 1), 24px 8px 0 0 rgba(255, 255, 255, 1), 56px 8px 0 0 rgba(255, 255, 255, 1), 112px 8px 0 0 rgba(255, 255, 255, 1), 120px 8px 0 0 rgba(255, 255, 255, 1), 136px 8px 0 0 rgba(255, 255, 255, 1), 152px 8px 0 0 rgba(255, 255, 255, 1), 160px 8px 0 0 rgba(255, 255, 255, 1), 168px 8px 0 0 rgba(255, 255, 255, 1), 176px 8px 0 0 rgba(255, 255, 255, 1), 184px 8px 0 0 rgba(255, 255, 255, 1), 192px 8px 0 0 rgba(255, 255, 255, 1), 200px 8px 0 0 rgba(255, 255, 255, 1), 208px 8px 0 0 rgba(255, 255, 255, 1), 216px 8px 0 0 rgba(255, 255, 255, 1), 224px 8px 0 0 rgba(255, 255, 255, 1), 232px 8px 0 0 rgba(255, 255, 255, 1), 240px 8px 0 0 rgba(255, 255, 255, 1), 248px 8px 0 0 rgba(255, 255, 255, 1), 256px 8px 0 0 rgba(255, 255, 255, 1), 264px 8px 0 0 rgba(255, 255, 255, 1), 8px 16px 0 0 rgba(255, 255, 255, 1), 24px 16px 0 0 rgba(255, 255, 255, 1), 56px 16px 0 0 rgba(255, 255, 255, 1), 96px 16px 0 0 rgba(255, 255, 255, 1), 136px 16px 0 0 rgba(255, 255, 255, 1), 264px 16px 0 0 rgba(255, 255, 255, 1), 8px 24px 0 0 rgba(255, 255, 255, 1), 24px 24px 0 0 rgba(255, 255, 255, 1), 32px 24px 0 0 rgba(255, 255, 255, 1), 40px 24px 0 0 rgba(255, 255, 255, 1), 56px 24px 0 0 rgba(255, 255, 255, 1), 88px 24px 0 0 rgba(255, 255, 255, 1), 96px 24px 0 0 rgba(255, 255, 255, 1), 112px 24px 0 0 rgba(255, 255, 255, 1), 136px 24px 0 0 rgba(255, 255, 255, 1), 152px 24px 0 0 rgba(255, 255, 255, 1), 160px 24px 0 0 rgba(255, 255, 255, 1), 168px 24px 0 0 rgba(255, 255, 255, 1), 200px 24px 0 0 rgba(255, 255, 255, 1), 208px 24px 0 0 rgba(255, 255, 255, 1), 216px 24px 0 0 rgba(255, 255, 255, 1), 232px 24px 0 0 rgba(255, 255, 255, 1), 240px 24px 0 0 rgba(255, 255, 255, 1), 248px 24px 0 0 rgba(255, 255, 255, 1), 264px 24px 0 0 rgba(255, 255, 255, 1), 8px 32px 0 0 rgba(255, 255, 255, 1), 24px 32px 0 0 rgba(255, 255, 255, 1), 40px 32px 0 0 rgba(255, 255, 255, 1), 56px 32px 0 0 rgba(255, 255, 255, 1), 96px 32px 0 0 rgba(255, 255, 255, 1), 136px 32px 0 0 rgba(255, 255, 255, 1), 152px 32px 0 0 rgba(255, 255, 255, 1), 168px 32px 0 0 rgba(255, 255, 255, 1), 200px 32px 0 0 rgba(255, 255, 255, 1), 216px 32px 0 0 rgba(255, 255, 255, 1), 232px 32px 0 0 rgba(255, 255, 255, 1), 248px 32px 0 0 rgba(255, 255, 255, 1), 264px 32px 0 0 rgba(255, 255, 255, 1), 8px 40px 0 0 rgba(255, 255, 255, 1), 24px 40px 0 0 rgba(255, 255, 255, 1), 32px 40px 0 0 rgba(255, 255, 255, 1), 40px 40px 0 0 rgba(255, 255, 255, 1), 56px 40px 0 0 rgba(255, 255, 255, 1), 72px 40px 0 0 rgba(255, 255, 255, 1), 88px 40px 0 0 rgba(255, 255, 255, 1), 96px 40px 0 0 rgba(255, 255, 255, 1), 104px 40px 0 0 rgba(255, 255, 255, 1), 112px 40px 0 0 rgba(255, 255, 255, 1), 120px 40px 0 0 rgba(255, 255, 255, 1), 136px 40px 0 0 rgba(255, 255, 255, 1), 152px 40px 0 0 rgba(255, 255, 255, 1), 160px 40px 0 0 rgba(255, 255, 255, 1), 168px 40px 0 0 rgba(255, 255, 255, 1), 200px 40px 0 0 rgba(255, 255, 255, 1), 208px 40px 0 0 rgba(255, 255, 255, 1), 216px 40px 0 0 rgba(255, 255, 255, 1), 232px 40px 0 0 rgba(255, 255, 255, 1), 240px 40px 0 0 rgba(255, 255, 255, 1), 248px 40px 0 0 rgba(255, 255, 255, 1), 264px 40px 0 0 rgba(255, 255, 255, 1), 8px 48px 0 0 rgba(255, 255, 255, 1), 168px 48px 0 0 rgba(255, 255, 255, 1), 184px 48px 0 0 rgba(255, 255, 255, 1), 216px 48px 0 0 rgba(255, 255, 255, 1), 248px 48px 0 0 rgba(255, 255, 255, 1), 264px 48px 0 0 rgba(255, 255, 255, 1), 8px 56px 0 0 rgba(255, 255, 255, 1), 16px 56px 0 0 rgba(255, 255, 255, 1), 24px 56px 0 0 rgba(255, 255, 255, 1), 32px 56px 0 0 rgba(255, 255, 255, 1), 40px 56px 0 0 rgba(255, 255, 255, 1), 48px 56px 0 0 rgba(255, 255, 255, 1), 56px 56px 0 0 rgba(255, 255, 255, 1), 64px 56px 0 0 rgba(255, 255, 255, 1), 72px 56px 0 0 rgba(255, 255, 255, 1), 80px 56px 0 0 rgba(255, 255, 255, 1), 88px 56px 0 0 rgba(255, 255, 255, 1), 96px 56px 0 0 rgba(255, 255, 255, 1), 104px 56px 0 0 rgba(255, 255, 255, 1), 112px 56px 0 0 rgba(255, 255, 255, 1), 120px 56px 0 0 rgba(255, 255, 255, 1), 128px 56px 0 0 rgba(255, 255, 255, 1), 136px 56px 0 0 rgba(255, 255, 255, 1), 152px 56px 0 0 rgba(255, 255, 255, 1), 160px 56px 0 0 rgba(255, 255, 255, 1), 168px 56px 0 0 rgba(255, 255, 255, 1), 200px 56px 0 0 rgba(255, 255, 255, 1), 208px 56px 0 0 rgba(255, 255, 255, 1), 216px 56px 0 0 rgba(255, 255, 255, 1), 232px 56px 0 0 rgba(255, 255, 255, 1), 240px 56px 0 0 rgba(255, 255, 255, 1), 248px 56px 0 0 rgba(255, 255, 255, 1), 264px 56px 0 0 rgba(255, 255, 255, 1);
+    height: 8px;
+    width: 8px;
+}
+
+
+.wrapper {
+    background-color: #1e1e1e;
+    height: 100%;
+    padding: 1rem 1rem;
+}
