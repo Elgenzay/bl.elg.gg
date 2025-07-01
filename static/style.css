@@ -184,5 +184,6 @@ p > img {
 .wrapper {
     background-color: #1e1e1e;
     height: 100%;
+    min-height: 100vh;
     padding: 1rem 1rem;
 }
