@@ -25,7 +25,7 @@ use std::time::Instant;
 use toml::Table;
 
 const RELOAD_THROTTLE_SECONDS: i64 = 10;
-const READ_TIME_ESTIMATE_WPM: f32 = 200.;
+const READ_TIME_ESTIMATE_WPM: f32 = 250.;
 
 #[derive(Serialize, Clone, Debug)]
 pub struct Post {
