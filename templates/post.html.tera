@@ -33,8 +33,13 @@
         <div class="layout">
             <div class="content">
                 <article>
-                    <h2 class="post-title">{{ post.title }}</h2>
-                    <div class="post-date">{{ post.friendly_date }}</div>
+                    <div class="post-meta">
+                        <div>
+                            <h2 class="post-title">{{ post.title }}</h2>
+                            <div class="post-date">{{ post.friendly_date }}</div>
+                        </div>
+                        <div class="post-readtime">{{ post.read_time }} min read</div>
+                    </div>
                     <div class="post-body">
                         {{ post.body | safe}}
                     </div>

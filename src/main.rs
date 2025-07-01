@@ -1,4 +1,5 @@
 use chrono::NaiveDate;
+use pulldown_cmark::Event;
 use pulldown_cmark::{Options, Parser, html};
 use rocket::State;
 use rocket::catch;
@@ -24,6 +25,7 @@ use std::time::Instant;
 use toml::Table;
 
 const RELOAD_THROTTLE_SECONDS: i64 = 10;
+const READ_TIME_ESTIMATE_WPM: f32 = 200.;
 
 #[derive(Serialize, Clone, Debug)]
 pub struct Post {
@@ -32,6 +34,7 @@ pub struct Post {
     date: NaiveDate,
     friendly_date: String,
     body: String,
+    read_time: u32,
 }
 
 #[launch]
@@ -100,6 +103,7 @@ fn load_posts() -> Vec<Post> {
                             date,
                             friendly_date: date.format("%B %d, %Y").to_string(),
                             body: markdown_to_html(&body),
+                            read_time: estimate_read_time(&body),
                         });
                     }
                 }
@@ -254,4 +258,17 @@ fn reload(state: &State<Mutex<ReloadState>>, posts: &State<RwLock<Vec<Post>>>) -
     *posts_lock = load_posts();
     reload_state.last_reload = now;
     "Posts reloaded.".into()
+}
+
+fn estimate_read_time(markdown: &str) -> u32 {
+    let parser = Parser::new_ext(markdown, Options::all());
+    let mut word_count = 0;
+
+    for event in parser {
+        if let Event::Text(text) = event {
+            word_count += text.split_whitespace().count();
+        }
+    }
+
+    ((word_count as f32 / READ_TIME_ESTIMATE_WPM).ceil() as u32).max(1)
 }
