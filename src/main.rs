@@ -1,5 +1,5 @@
 use chrono::NaiveDate;
-use pulldown_cmark::Event;
+use pulldown_cmark::{Event, HeadingLevel, Tag, TagEnd};
 use pulldown_cmark::{Options, Parser, html};
 use rocket::State;
 use rocket::catch;
@@ -26,6 +26,9 @@ use toml::Table;
 
 const RELOAD_THROTTLE_SECONDS: i64 = 10;
 const READ_TIME_ESTIMATE_WPM: f32 = 250.;
+
+const CALLOUT_BEGIN_MARKER: &str = "{{{";
+const CALLOUT_END_MARKER: &str = "}}}";
 
 #[derive(Serialize, Clone, Debug)]
 pub struct Post {
@@ -173,10 +176,87 @@ pub async fn postpage(postname: &str, state: &State<RwLock<Vec<Post>>>) -> Optio
 }
 
 fn markdown_to_html(markdown_input: &str) -> String {
+    let s = convert_commonmark(markdown_input);
+    convert_callout_markdown(s)
+}
+
+fn convert_commonmark(markdown_input: &str) -> String {
     let parser = Parser::new_ext(markdown_input, Options::all());
+    let mut heading_text = String::new();
+    let mut in_h1 = false;
+
+    let parser = parser.filter_map(|event| match event {
+        Event::Start(Tag::Heading {
+            level: HeadingLevel::H1,
+            ..
+        }) => {
+            in_h1 = true;
+            heading_text.clear();
+            None
+        }
+        Event::Text(ref text) if in_h1 => {
+            heading_text.push_str(text);
+            None
+        }
+        Event::End(TagEnd::Heading(level)) if in_h1 && level == HeadingLevel::H1 => {
+            in_h1 = false;
+
+            let id_str = heading_text
+                .to_lowercase()
+                .replace(|c: char| !c.is_ascii_alphanumeric() && c != ' ', "")
+                .replace(' ', "-");
+
+            Some(Event::Html(
+                format!("<h1 id=\"{id_str}\"><a href=\"#{id_str}\">{heading_text}</a></h1>").into(),
+            ))
+        }
+        _ if in_h1 => None,
+        _ => Some(event),
+    });
+
     let mut html_output = String::new();
     html::push_html(&mut html_output, parser);
+    html_output = convert_callout_markdown(html_output);
     html_output
+}
+
+pub fn convert_callout_markdown(html: String) -> String {
+    let mut output = String::new();
+    let mut remaining = html.as_str();
+
+    loop {
+        let start_index = if let Some(index) = remaining.find(CALLOUT_BEGIN_MARKER) {
+            index
+        } else {
+            output.push_str(remaining);
+            break;
+        };
+
+        output.push_str(&remaining[..start_index]);
+        let after_marker = &remaining[start_index + CALLOUT_BEGIN_MARKER.len()..];
+        let block_type_end = after_marker.find('\n').unwrap_or(after_marker.len());
+        let block_type = &after_marker[..block_type_end].trim();
+        let block_start = start_index + CALLOUT_BEGIN_MARKER.len() + block_type_end;
+        let after_block = &remaining[block_start..];
+
+        let end_index = if let Some(index) = after_block.find(CALLOUT_END_MARKER) {
+            index
+        } else {
+            output.push_str(&remaining[start_index..]);
+            break;
+        };
+
+        let block_content = &after_block[..end_index].trim();
+        let block_end = block_start + end_index + CALLOUT_END_MARKER.len();
+
+        output.push_str(&format!(
+            "<div class=\"callout {block_type}-callout\"><span class=\"callout-icon {block_type}-callout-icon\"></span><span>{block_content}</span></div>\n"
+        ));
+
+        remaining = &remaining[block_end..];
+    }
+
+    output
 }
 
 #[get("/rss")]
@@ -213,7 +293,7 @@ fn rss_feed(state: &State<RwLock<Vec<Post>>>) -> (ContentType, String) {
             xml_escape(&post.title)
         ));
 
-        rss.push_str(&format!("<pubDate>{}</pubDate>", pub_date));
+        rss.push_str(&format!("<pubDate>{pub_date}</pubDate>"));
 
         rss.push_str(&format!(
             "<guid>https://bl.elg.gg/{}</guid>",
