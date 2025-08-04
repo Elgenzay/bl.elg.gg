@@ -63,11 +63,13 @@
                 <h4>Posts</h4>
                 <ul>
                     {% for p in posts %}
+                    {% if p.hidden == false %}
                     <li>
                         <a href="/{{ p.slug }}" class="{% if post.slug == p.slug %}active{% endif %}">
                             {{ p.title }}
                         </a>
                     </li>
+                    {% endif %}
                     {% endfor %}
                 </ul>
                 <div class="socials-wrapper">

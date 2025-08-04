@@ -38,6 +38,7 @@ pub struct Post {
     friendly_date: String,
     body: String,
     read_time: u32,
+    hidden: bool,
 }
 
 #[launch]
@@ -107,6 +108,10 @@ fn load_posts() -> Vec<Post> {
                             friendly_date: date.format("%B %d, %Y").to_string(),
                             body: markdown_to_html(&body),
                             read_time: estimate_read_time(&body),
+                            hidden: toml
+                                .get("hidden")
+                                .and_then(|v| v.as_bool())
+                                .unwrap_or(false),
                         });
                     }
                 }
@@ -125,7 +130,11 @@ pub async fn home(state: &State<RwLock<Vec<Post>>>) -> Redirect {
         posts.clone()
     };
 
-    let latest_post = posts.first().expect("No posts found");
+    let latest_post = posts
+        .iter()
+        .find(|p| !p.hidden)
+        .unwrap_or_else(|| posts.first().expect("No posts available"));
+
     Redirect::to(format!("/{}", latest_post.slug))
 }
 
