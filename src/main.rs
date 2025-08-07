@@ -288,6 +288,10 @@ fn rss_feed(state: &State<RwLock<Vec<Post>>>) -> (ContentType, String) {
     );
 
     for post in posts.iter().take(10) {
+        if post.hidden {
+            continue;
+        }
+
         let pub_date = format!("{} 00:00:00 GMT", post.date.format("%a, %d %b %Y"));
         rss.push_str("<item>");
         rss.push_str(&format!("<title>{}</title>", xml_escape(&post.title)));
