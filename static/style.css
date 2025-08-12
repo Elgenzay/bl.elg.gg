@@ -59,28 +59,65 @@ p>img {
 
 h1>a {
     color: inherit;
-    text-decoration: none !important;
     position: relative;
+    text-decoration: none !important;
 }
 
 h1>a::after {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' width='16' height='16'%3E%3Cpath fill='white' d='m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z'%3E%3C/path%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-size: contain;
     content: '';
     display: inline-block;
-    width: 1.2em;
     height: 1em;
-    vertical-align: middle;
     margin-left: 0.25em;
-    background-size: contain;
-    background-repeat: no-repeat;
     opacity: 0;
     transition: opacity 0.2s;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' width='16' height='16'%3E%3Cpath fill='white' d='m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z'%3E%3C/path%3E%3C/svg%3E");
+    vertical-align: middle;
+    width: 1.2em;
 }
 
 h1>a:hover::after,
 h1>a:focus::after {
     opacity: 1;
 }
+
+table {
+  border: 1px solid #555;
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid #555;
+  padding: 0.5em;
+}
+
+td {
+  background-color: #111;
+}
+
+blockquote {
+  background-color: #111;
+  border-left: 4px solid #888;
+  color: #bbb;
+  font-style: italic;
+  padding: 0.1em 1em;
+}
+
+h1 {
+    font-size: 1.5rem;
+}
+
+h1 > a {
+    align-items: center;
+    display: inline-flex;
+}
+
+h2 { font-size: 1.25em; }
+h3 { font-size: 1.1em; }
+h4 { font-size: 1em; }
+h5 { font-size: 0.9em; }
+h6 { font-size: 0.8em; }
 
 @media (min-width: 1000px) {
     .layout {
@@ -126,7 +163,7 @@ h1>a:focus::after {
 
 .post-title {
     color: #fff;
-    font-size: 1.75rem;
+    font-size: 2rem;
     margin-bottom: 0.25rem;
 }
 
@@ -240,14 +277,14 @@ h1>a:focus::after {
 }
 
 .callout {
-    display: flex;
     align-items: center;
-    gap: 0.85em;
+    border: 1px solid;
     border-radius: 0.7em;
-    padding: 1em 2em 1em 1.2em;
+    display: flex;
+    gap: 0.85em;
     margin: 2em 0;
     max-width: 500px;
-    border: 1px solid;
+    padding: 1em 2em 1em 1.2em;
 }
 
 .update-callout {
@@ -261,12 +298,12 @@ h1>a:focus::after {
 }
 
 .callout-icon {
-    width: 2rem;
-    height: 2rem;
-    display: inline-block;
-    background-size: contain;
     background-repeat: no-repeat;
+    background-size: contain;
+    display: inline-block;
     flex-shrink: 0;
+    height: 2rem;
+    width: 2rem;
 }
 
 .update-callout-icon {

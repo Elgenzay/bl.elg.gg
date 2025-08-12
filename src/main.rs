@@ -98,7 +98,7 @@ fn load_posts() -> Vec<Post> {
                             .unwrap_or_else(|| NaiveDate::from_ymd_opt(1970, 1, 1).unwrap());
 
                         posts.push(Post {
-                            slug: file_name.clone(),
+                            slug: file_name.replace('_', "-"),
                             title: toml
                                 .get("title")
                                 .and_then(|v| v.as_str())
