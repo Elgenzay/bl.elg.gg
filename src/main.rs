@@ -1,6 +1,7 @@
 use chrono::NaiveDate;
 use pulldown_cmark::{Event, HeadingLevel, Tag, TagEnd};
 use pulldown_cmark::{Options, Parser, html};
+use rocket::Request;
 use rocket::State;
 use rocket::catch;
 use rocket::catchers;
@@ -150,8 +151,29 @@ pub async fn static_pages(path: PathBuf) -> Option<NamedFile> {
 }
 
 #[catch(404)]
-pub async fn not_found() -> Redirect {
-    Redirect::to("/")
+pub async fn not_found(req: &Request<'_>) -> Template {
+    let posts = req
+        .rocket()
+        .state::<RwLock<Vec<Post>>>()
+        .expect("missing managed state: RwLock<Vec<Post>>")
+        .read()
+        .expect("rwlock poisoned")
+        .clone();
+
+    let context = PostContext {
+        posts,
+        post: Post {
+            slug: "404".to_string(),
+            title: "Not Found".to_string(),
+            date: NaiveDate::from_ymd_opt(1970, 1, 1).unwrap(),
+            friendly_date: "404".to_string(),
+            body: "<p>The requested post does not exist.</p>".to_string(),
+            read_time: 0,
+            hidden: true,
+        },
+    };
+
+    Template::render("post", &context)
 }
 
 #[derive(Serialize)]
